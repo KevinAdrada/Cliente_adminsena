@@ -5,17 +5,20 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ComputerController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TrainingCenterController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ApprenticeController;
 
 
 
 Route::get('/', function () {
     return view('home');
 });
-
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/about', function () {
+    return view('about');
+});
 
 
 Route::get('/areas', [AreaController::class, 'index'])->name('area.index');
@@ -26,6 +29,7 @@ Route::get('/areas/{id}/edit', [AreaController::class, 'edit'])->name('area.edit
 Route::put('/areas/{id}', [AreaController::class, 'update'])->name('area.update');
 Route::delete('/areas/{id}', [AreaController::class, 'destroy'])->name('area.destroy');
 
+
 Route::get('/computers', [ComputerController::class, 'index'])->name('computer.index');
 Route::get('/computers/create', [ComputerController::class, 'create'])->name('computer.create');
 Route::post('/computers', [ComputerController::class, 'store'])->name('computer.store');
@@ -34,6 +38,7 @@ Route::get('/computers/{id}/edit', [ComputerController::class, 'edit'])->name('c
 Route::put('/computers/{id}', [ComputerController::class, 'update'])->name('computer.update');
 Route::delete('/computers/{id}', [ComputerController::class, 'destroy'])->name('computer.destroy');
 
+
 Route::get('/training_centers', [TrainingCenterController::class, 'index'])->name('training_center.index');
 Route::get('/training_centers/create', [TrainingCenterController::class, 'create'])->name('training_center.create');
 Route::post('/training_centers', [TrainingCenterController::class, 'store'])->name('training_center.store');
@@ -41,3 +46,39 @@ Route::get('/training_centers/{id}', [TrainingCenterController::class, 'show'])-
 Route::get('/training_centers/{id}/edit', [TrainingCenterController::class, 'edit'])->name('training_center.edit');
 Route::put('/training_centers/{id}', [TrainingCenterController::class, 'update'])->name('training_center.update');
 Route::delete('/training_centers/{id}', [TrainingCenterController::class, 'destroy'])->name('training_center.destroy');
+
+
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/users', [UserController::class, 'store'])->name('user.store');
+Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
+Route::get('/admins', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admins/create', [AdminController::class, 'create'])->name('admin.create');
+Route::post('/admins', [AdminController::class, 'store'])->name('admin.store');
+Route::get('/admins/{id}', [AdminController::class, 'show'])->name('admin.show');
+Route::get('/admins/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+Route::put('/admins/{id}', [AdminController::class, 'update'])->name('admin.update');
+Route::delete('/admins/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+
+
+Route::get('/apprentices', [ApprenticeController::class, 'index'])->name('apprentice.index');
+Route::get('/apprentices/create', [ApprenticeController::class, 'create'])->name('apprentice.create');
+Route::post('/apprentices', [ApprenticeController::class, 'store'])->name('apprentice.store');
+Route::get('/apprentices/{id}', [ApprenticeController::class, 'show'])->name('apprentice.show');
+Route::get('/apprentices/{id}/edit', [ApprenticeController::class, 'edit'])->name('apprentice.edit');
+Route::put('/apprentices/{id}', [ApprenticeController::class, 'update'])->name('apprentice.update');
+Route::delete('/apprentices/{id}', [ApprenticeController::class, 'destroy'])->name('apprentice.destroy');
+
+
+Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
+Route::get('/teachers/create', [TeacherController::class, 'create'])->name('teacher.create');
+Route::post('/teachers', [TeacherController::class, 'store'])->name('teacher.store');
+Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('teacher.show');
+Route::get('/teachers/{id}/edit', [TeacherController::class, 'edit'])->name('teacher.edit');
+Route::put('/teachers/{id}', [TeacherController::class, 'update'])->name('teacher.update');
+Route::delete('/teachers/{id}', [TeacherController::class, 'destroy'])->name('teacher.destroy');

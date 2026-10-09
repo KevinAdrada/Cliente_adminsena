@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class AdminController extends Controller
 {
     private function fetchDataFromApi($url)
     {
@@ -16,8 +16,8 @@ class AreaController extends Controller
     public function index()
     {
         $url = env('URL_SERVER_API');
-        $areas = $this->fetchDataFromApi($url . '/areas');
-        return view('areas.index', compact('areas'));
+        $admins = $this->fetchDataFromApi($url . '/admins');
+        return view('admins.index', compact('admins'));
     }
 
     public function show($id)
@@ -25,43 +25,41 @@ class AreaController extends Controller
 
         $url = env('URL_SERVER_API');
 
-        $area = $this->fetchDataFromApi($url . '/areas/' . $id);
+        $admin = $this->fetchDataFromApi($url . '/admins/' . $id);
 
-        return view('areas.show', compact('area'));
+        return view('admins.show', compact('admin'));
     }
 
     public function create()
     {
-        return view('areas.create');
+        return view('admins.create');
     }
 
     public function store(Request $request)
     {
         $url = env('URL_SERVER_API');
-        Http::post($url . '/areas', $request->all());
-        return redirect()->route('area.index');
+        Http::post($url . '/admins', $request->all());
+        return redirect()->route('admin.index');
     }
 
     public function edit($id)
     {
         $url = env('URL_SERVER_API');
-        $area = $this->fetchDataFromApi($url . '/areas/' . $id);
-        return view('areas.edit', compact('area'));
+        $admin = $this->fetchDataFromApi($url . '/admins/' . $id);
+        return view('admins.edit', compact('admin'));
     }
 
     public function update(Request $request, $id)
     {
         $url = env('URL_SERVER_API');
-
-        Http::put($url . '/areas/' . $id, $request->all());
-
-        return redirect()->route('area.index');
+        Http::put($url . '/admins/' . $id, $request->all());
+        return redirect()->route('admin.index');
     }
 
       public function destroy($id)
     {
         $url = env('URL_SERVER_API');
-        Http::delete($url . '/areas/' . $id);
-        return redirect()->route('area.index');
+        Http::delete($url . '/admins/' . $id);
+        return redirect()->route('admin.index');
     }
 }

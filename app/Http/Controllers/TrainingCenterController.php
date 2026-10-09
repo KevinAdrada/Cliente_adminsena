@@ -2,48 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class TrainingCenterController extends Controller
 {
+    private function fetchDataFromApi($url)
+    {
+        $response = Http::get($url);
+        return $response->json();
+    }
+
     public function index()
     {
         $url = env('URL_SERVER_API');
-        $token = Session::get('api_token');
-
-        $response = Http::withToken($token)->get($url . '/training_centers');
-
-        if ($response->successful()) {
-            $training_centers = $response->json()['data'] ?? [];
-            return view('training_center.index', compact('training_centers'));
-        }
-
-        return back()->with('error', 'No se pudo obtener el listado de centros de formación.');
-    }
-
-    public function create()
-    {
-    }
-
-    public function store(Request $request)
-    {
+        $training_centers = $this->fetchDataFromApi($url . '/training_centers');
+        return view('training_centers.index', compact('training_centers'));
     }
 
     public function show($id)
     {
+
+        $url = env('URL_SERVER_API');
+        $training_center = $this->fetchDataFromApi($url . '/training_centers/' . $id);
+        return view('training_centers.show', compact('training_center'));
+    }
+
+    public function create()
+    {
+        return view('training_centers.create');
+    }
+
+    public function store(Request $request)
+    {
+        $url = env('URL_SERVER_API');
+        Http::post($url . '/training_centers', $request->all());
+        return redirect()->route('training_center.index');
     }
 
     public function edit($id)
     {
+        $url = env('URL_SERVER_API');
+        $training_center = $this->fetchDataFromApi($url . '/training_centers/' . $id);
+        return view('training_centers.edit', compact('training_center'));
     }
 
     public function update(Request $request, $id)
     {
+        $url = env('URL_SERVER_API');
+        Http::put($url . '/training_centers/' . $id, $request->all());
+        return redirect()->route('training_center.index');
     }
 
-    public function destroy($id)
+      public function destroy($id)
     {
+        $url = env('URL_SERVER_API');
+        Http::delete($url . '/training_centers/' . $id);
+        return redirect()->route('training_center.index');
     }
 }

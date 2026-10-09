@@ -31,7 +31,6 @@
                         <thead class="table-light text-center">
                             <tr>
                                 <th>ID</th>
-                                <th style="width: 80px;">Imagen</th>
                                 <th class="text-start">Nombre</th>
                                 <th class="text-start">Ubicación</th>
                                 <th class="text-center" style="width: 197px; min-width: 197px; max-width: 197px;">Acciones
@@ -40,28 +39,9 @@
                         </thead>
                         <tbody>
                             @forelse ($training_centers as $training_center)
-                                @php
-                                    $images = $training_center['images'] ?? [];
-                                    $imageModel = !empty($images) ? $images[0] : null;
-                                    $imagePath = $imageModel['imagen'] ?? null;
-
-                                    // Construimos la URL del backend eliminando '/api' de la variable de entorno
-                                    $backendUrl = rtrim(
-                                        str_replace('/api', '', env('URL_SERVER_API', 'http://api.adminsena.test')),
-                                        '/',
-                                    );
-                                    $avatar = $imagePath
-                                        ? $backendUrl . '/storage/images/' . $imagePath
-                                        : asset('images/default-user.png');
-                                @endphp
 
                                 <tr>
                                     <td class="text-center">{{ $training_center['id'] }}</td>
-                                    <td class="text-center">
-                                        <img src="{{ $avatar }}" alt="Imagen de {{ $training_center['name'] }}"
-                                            class="rounded-circle shadow-sm"
-                                            style="width: 40px; height: 40px; object-fit: cover;">
-                                    </td>
                                     <td class="fw-semibold text-start">{{ $training_center['name'] }}</td>
                                     <td class="text-start">{{ $training_center['location'] ?? 'Sin ubicación' }}</td>
                                     <td class="text-center">

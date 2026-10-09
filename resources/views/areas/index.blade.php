@@ -39,7 +39,7 @@
                         <tbody>
                             @forelse ($areas as $area)
                                 <tr class="text-center">
-                                    <td>{{ $area['id'] ?? $area->id }}</td>
+                                    <td>{{ $area['id']}}</td>
                                     <td class="fw-semibold text-start">{{ $area['name'] ?? $area->name }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center gap-2">

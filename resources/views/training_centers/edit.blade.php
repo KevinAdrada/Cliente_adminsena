@@ -39,7 +39,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('training_center.update', $training_center->id) }}" method="POST"
+                        <form action="{{ route('training_center.update', $training_center['id']) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -53,7 +53,7 @@
                                     <label for="name" class="form-label fw-semibold">Nombre del Centro</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                                         placeholder="Ej. Centro de Comercio y Servicios" required
-                                        value="{{ old('name', $training_center->name) }}">
+                                        value="{{ old('name', $training_center['name']) }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -63,38 +63,8 @@
                                     <label for="location" class="form-label fw-semibold">Ubicación / Dirección</label>
                                     <input type="text" class="form-control @error('location') is-invalid @enderror" id="location" name="location"
                                         placeholder="Ej. Calle 4 # 2-100" required
-                                        value="{{ old('location', $training_center->location) }}">
+                                        value="{{ old('location', $training_center['location']) }}">
                                     @error('location')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="card border-0 shadow-sm p-3 mb-4">
-                                <h5 class="text-success fw-bold mb-3 border-bottom pb-2">
-                                    <i class="bi bi-images me-2"></i> Fotografías del Centro
-                                </h5>
-
-                                @if ($training_center->images->count())
-                                    <div class="mb-3">
-                                        <label class="form-label fw-semibold text-muted small">Imágenes actuales</label>
-                                        <div class="d-flex flex-wrap gap-3">
-                                            @foreach ($training_center->images as $img)
-                                                <div class="p-1 bg-white border rounded shadow-sm">
-                                                    <img src="{{ asset('storage/images/' . $img->imagen) }}" alt="Imagen actual"
-                                                        width="120" height="90" class="rounded object-fit-cover">
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-
-                                <div class="mb-3">
-                                    <label for="imagenes" class="form-label fw-semibold">Agregar / Cambiar Imágenes</label>
-                                    <input type="file" class="form-control @error('imagenes.*') is-invalid @enderror" id="imagenes" name="imagenes[]"
-                                        accept="image/*" multiple>
-                                    <div class="form-text small text-muted">Puedes seleccionar varias imágenes a la vez para añadirlas.</div>
-                                    @error('imagenes.*')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

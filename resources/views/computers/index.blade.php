@@ -11,13 +11,11 @@
                         <p class="mb-0 text-white-50 small">Gestiona los equipos de cómputo asignados a cada ambiente de
                             formación.</p>
                     </div>
-                    @auth
                         <a href="{{ route('computer.create') }}"
                             class="btn btn-outline-light btn-sm fw-bold d-inline-flex align-items-center px-3 py-1 shadow-sm"
                             style="border-width: 2px; border-radius: 1rem;">
                             <i class="bi bi-plus-circle me-1"></i> Registrar Computadora
                         </a>
-                    @endauth
                 </div>
             </div>
 
@@ -33,51 +31,27 @@
                     <table class="table table-hover align-middle mb-0" style="width:100%">
                         <thead class="table-light text-center">
                             <tr>
-                                <th class="py-3 ps-3">Imagen</th>
                                 <th class="py-3 text-start">Número serie</th>
                                 <th class="py-3 text-start">Marca</th>
-                                <th class="py-3 text-start">Ambiente Asignado</th>
                                 <th class="py-3 text-center" style="width: 197px; min-width: 197px; max-width: 197px;">
                                     Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($computers as $computer)
-                                @php
-                                    $images = $computer['images'] ?? [];
-                                    $imageModel = !empty($images) ? $images[0] : null;
-                                    $imagePath = $imageModel['imagen'] ?? null;
-                                @endphp
-
+                            @foreach ($computers as $computer)
                                 <tr>
-                                    <td class="text-center ps-3">
-                                        @if (!empty($imagePath))
-                                            <img src="{{ asset('storage/images/' . $imagePath) }}"
-                                                alt="Computadora #{{ $computer['number'] }}" class="rounded shadow-sm"
-                                                style="width: 50px; height: 50px; object-fit: cover;">
-                                        @else
-                                            <span class="badge bg-secondary">Sin imagen</span>
-                                        @endif
-                                    </td>
-
                                     <td class="fw-bold text-start">{{ $computer['number'] }}</td>
-
                                     <td class="text-start">{{ $computer['brand'] }}</td>
-
-                                    <td class="text-start">{{ $computer['environment']['name'] ?? 'No asignado' }}</td>
-
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center align-items-center gap-2">
                                             <a href="{{ route('computer.show', $computer['id']) }}"
                                                 class="btn btn-outline-info btn-icon" title="Ver detalles">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-
                                             <a href="{{ route('computer.edit', $computer['id']) }}"
                                                 class="btn btn-outline-primary btn-icon" title="Editar">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-
                                             <form action="{{ route('computer.destroy', $computer['id']) }}" method="POST"
                                                 onsubmit="return confirm('¿Estás seguro de eliminar esta computadora?');"
                                                 class="m-0">
@@ -91,12 +65,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4 text-muted">No hay computadoras registradas.
-                                    </td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
